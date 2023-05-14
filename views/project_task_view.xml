@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Product Type Tree View -->
+        <record id="view_project_type_tree" model="ir.ui.view">
+            <field name="name">project.type.tree</field>
+            <field name="model">project.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!--                <field name="id" string="ID"/>-->
+                    <field name="name_of_project" string="Project Name"/>
+                    <!--                <field name="age"/>-->
+                    <!--                <field name="gender"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Project Process Form View -->
+        <record id="project_process_view_form" model="ir.ui.view">
+            <field name="name">project_process_view_form</field>
+            <field name="model">project.process</field>
+            <field name="arch" type="xml">
+                <form string="project_process_form">
+                    <sheet>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="process"/>
+                            <field name="task_validity_days"/>
+                            <field name="assignee"/>
+                            <field name="task_type"/>
+                            <field name="dependent_task"/>
+                            <field name="is_sample_order"
+                                   attrs="{'invisible':['|','|',('is_procurement','=',True),('is_plm','=',True),('is_manufacture','=',True)]}"/>
+                            <field name="is_procurement"
+                                   attrs="{'invisible':['|','|',('is_sample_order','=',True),('is_plm','=',True),('is_manufacture','=',True)]}"/>
+                            <field name="is_plm"
+                                   attrs="{'invisible':['|','|',('is_sample_order','=',True),('is_procurement','=',True),('is_manufacture','=',True)]}"/>
+                            <field name="is_manufacture"
+                                   attrs="{'invisible':['|','|',('is_sample_order','=',True),('is_procurement','=',True),('is_plm','=',True)]}"/>
+                            <field name="relation_id" invisible="1"/>
+                            <field name="relation_id2" invisible="1"/>
+                            <field name="get_id_select" invisible="1"/>
+                            <field name="record_id_subtask_id_save" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Project Type Form View -->
+    <record id="view_project_type_form" model="ir.ui.view">
+        <field name="name">project.type.form</field>
+        <field name="model">project.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_of_project" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name_of_project"/><!--                            <field name="age"/>-->
+                        </group>
+                        <!--                        <group>-->
+                        <!--                            <field name="gender"/>-->
+                        <!--                        </group>-->
+                    </group>
+                    <notebook>
+                        <page string="Project Precess">
+                            <field name="project_process">
+                                <tree string="Tree String">
+                                    <field name="sequence"/>
+                                    <field name="process"/>
+                                    <field name="task_validity_days"/>
+                                    <field name="assignee"/>
+                                    <field name="task_type"/>
+                                    <field name="dependent_task"/>
+                                    <field name="is_sample_order"/>
+                                    <field name="is_procurement"/>
+                                    <field name="is_plm"/>
+                                    <field name="is_manufacture"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    </data>
+</odoo>

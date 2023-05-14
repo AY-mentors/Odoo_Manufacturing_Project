@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_project_type,access.project.type,my_modul_2.model_project_type,base.group_user,1,1,1,1
+access_project_process,access.project.process,my_modul_2.model_project_process,base.group_user,1,1,1,1
+access_project_subtask_type,access.project.subtask.type,my_modul_2.model_project_subtask_type,base.group_user,1,1,1,1

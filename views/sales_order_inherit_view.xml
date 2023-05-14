@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <!-- Inherit Sales Order Form View to Modify it -->
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <!--        <field name="id" context="{'id': tasks_id_field}"/>-->
+        <field name="arch" type="xml">
+
+            <div class="oe_button_box">
+                <button name="action_open_tasks"
+                        attrs="{'invisible':[('tasks_count_field','=',0)]}"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-archive">
+                    <div class="o_stat_info">
+                        <field name="tasks_count_field" class="o_stat_value"/>
+                        <span class="o_stat_text">Tasks</span>
+                    </div>
+                </button>
+            </div>
+
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="project_name_tree"/>
+                <field name="tasks_id_field" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <!-- Add your fields or attributes here -->
+                <!--                <attribute name="name">ShowMassage</attribute>-->
+                <button name="create_stages_done" type="object" string="Send Task"/>
+            </xpath>
+            <!--create="false" editable="false"-->
+            <notebook position="inside">
+                <page string="Project Process">
+                    <field name="project_process_tree" create="false" editable="false">
+                        <tree string="Tree String">
+                            <field name="sequence"/>
+                            <field name="process"/>
+                            <field name="task_validity_days"/>
+                            <field name="assignee"/>
+                            <field name="task_type"/>
+                            <field name="dependent_task"/>
+                            <field name="is_sample_order"/>
+                            <field name="is_procurement"/>
+                            <field name="is_plm"/>
+                            <field name="is_manufacture"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Project Details">
+                    <group>
+                        <group>
+                            <field name="project_title"/>
+                            <field name="scope_of_work"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Product Type Act Window View -->
+    <record id="Data_Action" model="ir.actions.act_window">
+        <field name="name">Project Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new record!
+            </p>
+        </field>
+    </record>
+
+    <!-- Project Type manu Parent -->
+    <menuitem
+            id="pmConfigurationManu"
+            name="PM Configuration"
+            parent="project.menu_project_config"
+            sequence="11"/>
+    <!-- Project Type Manu Child -->
+    <menuitem
+            id="projectTypeManu"
+            name="Project Type"
+            parent="pmConfigurationManu"
+            action="Data_Action"
+    />
+
+</odoo>
